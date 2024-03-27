@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.dark-mode [name='user-circle'] {
+  color: white !important; /* Cambiar el color a blanco */
+}
+
 /* .App {
   text-align: center;
 }
