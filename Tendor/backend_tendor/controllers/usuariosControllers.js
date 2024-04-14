@@ -31,9 +31,9 @@ const obtenerUsuariosPorId = (req,res) => {
 }
 
 const crearUsuarios = (req, res) => {
-    const { nombre, correo, contrasena, medida_lona } = req.body;
-    connection.query("INSERT INTO usuarios (nombre, correo, contrasena, medida_lona) VALUES (?,?,?,?)",
-        [nombre, correo, contrasena, medida_lona], (error, results) => {
+    const { nombre, correo, contraseña, medida_lona } = req.body;
+    connection.query("INSERT INTO usuarios (nombre, correo, contraseña, medida_lona) VALUES (?,?,?,?)",
+        [nombre, correo, contraseña, medida_lona], (error, results) => {
             if (error) {
                 console.error("Error al agregar el usuario", error);
                 res.status(500).json({ error: "Error al agregar usuario" });
