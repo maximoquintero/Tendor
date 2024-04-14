@@ -2,45 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-.dark-mode [name='user-circle'] {
-  color: white !important; /* Cambiar el color a blanco */
+body {
+  background-color: #EEF1F9;
 }
 
-/* .App {
-  text-align: center;
+body.dark {
+  background-color: #1F1F1F;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  transition: background-color 0.3s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 1000;
+  font-style: italic;
+  color: black; /* Color de texto por defecto */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.dark .montserrat {
+  color: white; /* Color de texto en modo oscuro */
 }
 
-.App-link {
-  color: #61dafb;
+.textc {
+  color: black; /* Color de texto por defecto */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.dark .textc {
+  color: white; /* Color de texto en modo oscuro */
+}
+
+.bg {
+  background-color: #FFFFFF; /* Color de fondo por defecto */
+  color: black; /* Color de texto por defecto */
+}
+
+.dark.bg {
+  background-color: #1F1F1F; /* Color de fondo en modo oscuro */
+  color: white; /* Color de texto en modo oscuro */
+}
+
+.bordercolor {
+  border-color: #A5A5FD;
+  border: 2pt;
+}
+
+.dark .bordercolor {
+  border-color: #838383; /* Color de borde en modo oscuro */
+}
