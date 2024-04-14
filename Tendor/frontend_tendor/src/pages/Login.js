@@ -28,7 +28,7 @@ export default function Login() {
         url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,226&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap')
       </style>
       <div
-        className={`absolute h-full w-6/12 rounded-r-3xl justify-center items-center ${
+        className={`absolute h-full w-6/12 justify-center items-center ${
           darkMode ? "dark" : ""
         }`}
       >
