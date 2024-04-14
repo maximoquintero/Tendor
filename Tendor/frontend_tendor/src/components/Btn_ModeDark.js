@@ -28,7 +28,7 @@ function Btn_ModeDark() {
 
   return (
     <>
-    <button onClick={toggleDarkMode} className={` ml-10 pt-1 px-1  mt-10 rounded-[100%] ${darkMode ? 'dark' : ''}`}>
+    <button onClick={toggleDarkMode} className={` ml-10 mt-10 rounded-[100%] ${darkMode ? 'dark' : ''}`}>
           {darkMode ?  <box-icon name='sun' type='solid' color='#858585'></box-icon> : <box-icon name='moon' type='solid' color='#858585'></box-icon>}
     </button>
     </>

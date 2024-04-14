@@ -36,11 +36,11 @@ export default function Login() {
         <img
           src={Logo}
           alt="logo"
-          className={`line-block mx-auto mt-8 h-24  `}
+          className={`line-block mx-auto h-24  `}
         />
         <div className={`flex flex-col  mt-8 ${darkMode ? "dark" : ""}`}>
           <h2
-            className={`text-3xl montserrat text-center mb-8 ${
+            className={`text-3xl montserrat text-center mb-5 ${
               darkMode ? "dark" : ""
             }`}
           >
@@ -53,7 +53,7 @@ export default function Login() {
               placeholder="Correo electronico"
             />
 
-            <p className={`mt-10 textc ${darkMode ? "dark" : ""}`}>
+            <p className={`mt-8 textc ${darkMode ? "dark" : ""}`}>
               Contraseña:
             </p>
             <input

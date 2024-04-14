@@ -31,7 +31,7 @@ function Navbar() {
   }, [darkMode]);
 
   return (
-    <div className={`bg border-[#838383] flex mx-20 gap-10 text-center mt-20 px-6 py-4 border rounded-2xl h-24 ${darkMode ? 'dark' : 'border-[#A5A5FD]'}`}>
+    <div className={`bg border-[#838383] flex mx-20 gap-10 text-center mt-[2%] px-6 py-4 border rounded-2xl h-24 ${darkMode ? 'dark' : 'border-[#A5A5FD]'}`}>
       <div className='self-center ml-5 w-[80px]'>
         <Link to="/dashboard">
           <img src={Logo} className='h-16 items-center -mt-1 ml-2' alt=''/>
