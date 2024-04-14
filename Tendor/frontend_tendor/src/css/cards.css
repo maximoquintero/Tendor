@@ -3,6 +3,9 @@
     flex-wrap: nowrap; 
     overflow-x: auto;
 }
+.card.dark{
+    border-color: #838383; 
+}
 
 .card1{
     flex: 0 0 auto;
@@ -27,6 +30,11 @@
     text-align: center;
     padding-top: 15px;
 }
+
+.card1.dark{
+    border-color: #838383; 
+}
+
 .card2{
     background:url('../img/dash_img/Lona.png');
     background-color: #0000006e;
@@ -61,6 +69,11 @@
     margin-top: 5px;
     margin-left: 50px;
 }
+
+.card2.dark{
+    border-color: #838383; 
+}
+
 .card3{
     background:url('../img/dash_img/Noti.png');
     background-color: #0000006e;
@@ -88,6 +101,11 @@
     margin-top: 10px;
     margin-left: 10px;
 }
+
+.card3.dark{
+    border-color: #838383; 
+}
+
 .carta1{
     display: flex;
     flex-wrap: nowrap; 
@@ -131,6 +149,11 @@
     font-size:20px;
     margin-top:3px;
 }
+
+.card4.dark{
+    border-color: #838383; 
+}
+
 .card5{
     background:url('../img/dash_img/tiempo.png');
     background-color: #0000006e;
@@ -157,6 +180,10 @@
     margin-left:65px;
 }
 
+.card5.dark{
+    border-color: #838383; 
+}
+
 .card6{
     background:url('../img/dash_img/clima_semana.png');
     background-color: #0000006e;
@@ -177,4 +204,8 @@
     color: white;
     font-size: 17px;
     display:flex;
+}
+
+.card6.dark{
+    border-color: #838383; 
 }

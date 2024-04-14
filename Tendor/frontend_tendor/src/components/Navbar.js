@@ -1,34 +1,61 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../img/Logo.png';
+import React, { useState, useEffect } from 'react';
 
-function Navbar() {
-    
+function Navbar() { 
+
+  const [darkMode, setDarkMode] = useState(getInitialMode());
+
+  // Función para obtener el modo oscuro desde el almacenamiento local
+  function getInitialMode() {
+    const savedMode = JSON.parse(localStorage.getItem('darkMode'));
+    return savedMode || false; // Devuelve false si no se encuentra en el almacenamiento local
+  }
+
+  // Función para cambiar entre el modo claro y oscuro
+  function toggleDarkMode() {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    localStorage.setItem('darkMode', JSON.stringify(newMode));
+    // Recargar la página
+    window.location.reload();
+  }
+
+  // Efecto para aplicar el modo oscuro al cargar la página
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [darkMode]);
+
   return (
-    <>
-      <div className='bg-white flex border-[#A5A5FD] dark:border-[#858585] mx-20 gap-10 text-center px-6 py-4 dark:bg-black  text-black dark:text-white border-2 rounded-2xl h-24 mt-5'>
-        <div>
-          <Link to= "/dashboard">
-          <img src={Logo} className='items-center h-16 ml-2 -mt-1' alt=''/>
-          </Link>
-        </div>
-        <div className='flex gap-5 text-center text-[#858585] pt-4 start-0 text-xl '>
-          <Link to='/dashboard'>
-          <h1 className='hover:text-black dark:hover:text-white'>Dashboard</h1>
-          </Link>
-          <Link to='/historial'>
-          <h1 className='hover:text-black dark:hover:text-white'>Historial de carga</h1>
-          </Link>
-        </div>
-        <div className='flex gap-4 mx-auto pt-5'>
-          <box-icon  name='user-circle' color='#858585' ></box-icon>
-          <box-icon name='cog' color='#858585' ></box-icon>
-          <Link to='/'>
-            <box-icon name='exit' color='#858585' ></box-icon>
-          </Link>
-        </div>
+    <div className={`bg border-[#838383] flex mx-20 gap-10 text-center mt-[2%] px-6 py-4 border rounded-2xl h-24 ${darkMode ? 'dark' : 'border-[#A5A5FD]'}`}>
+      <div className='self-center ml-5 w-[80px]'>
+        <Link to="/dashboard">
+          <img src={Logo} className='h-16 items-center -mt-1 ml-2' alt=''/>
+        </Link>
       </div>
-    </>
+      <div className='flex gap-5 ml-0 text-center text-[#858585] pt-4 start-0 text-xl'>
+        <Link to='/dashboard'>
+          <h1 className={`hover:text-black ${darkMode ? 'dark:hover:text-white' : ''}`}>Dashboard</h1>
+        </Link>
+        <Link to='/historial'>
+          <h1 className={`hover:text-black w-[200px] ${darkMode ? 'dark:hover:text-white' : ''}`}>Historial de carga</h1>
+        </Link>
+      </div>
+      <div className='flex gap-4 ml-[50%] mr-0 pt-4 px-2'>
+        <Link to='/'>
+          <button className='items-center pt-1'>
+            <box-icon name='exit' color='#858585'></box-icon>            
+          </button> 
+        </Link>       
+        <button className='items-center -pt-1 -mt-2' onClick={toggleDarkMode}>
+          {darkMode ?  <box-icon name='sun' type='solid' color='#858585'></box-icon> : <box-icon name='moon' type='solid' color='#858585'></box-icon>}
+        </button>
+      </div>
+    </div>
   );
 }
 
