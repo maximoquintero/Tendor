@@ -3,9 +3,12 @@ import Fondo from "../img/inicio_sesion_img/fondo_registro.jpg";
 import Logo from "../img/Logo.png";
 import BTN_MODE_DARK from "../components/Btn_ModeDark";
 import { useEffect, useState } from "react";
+import Axios from 'axios';
 
 export default function Login() {
   const [darkMode, setDarkMode] = useState(getInitialMode());
+  const [correo, setCorreo] = useState("");
+  const [contraseña, setContraseña] = useState("")
 
   // Función para obtener el modo oscuro desde el almacenamiento local
   function getInitialMode() {
@@ -21,6 +24,22 @@ export default function Login() {
       document.body.classList.remove("dark");
     }
   }, [darkMode]);
+
+  const Login = async(e) =>{
+    e.preventDefault();
+    const response = await Axios.post('http://localhost:3001/login',{
+      correo: correo,
+      contraseña: contraseña
+    })
+    if (response.data.status){
+      window.location.href= "/dashboard"
+    }else{
+        setCorreo("");
+        setContraseña("");
+        alert("Prueba con otro correo o contraseña");
+    }
+  }
+  
   return (
     <>
       <style>
@@ -49,16 +68,22 @@ export default function Login() {
           <form className="ml-52">
             <p className={`textc ${darkMode ? "dark" : ""}`}>Correo:</p>
             <input
+              type="mail"
               className="mt-2 w-[53%] rounded-md border-3 border-[#3c3cffd7]  bg-gray-100 p-2"
               placeholder="Correo electronico"
+              value={correo}
+              onChange={(e)=>{setCorreo(e.target.value)}}
             />
 
             <p className={`mt-8 textc ${darkMode ? "dark" : ""}`}>
               Contraseña:
             </p>
             <input
+              type="password"
               className="mt-2 w-[53%]  border-3 border-[#3c3cffd7] rounded-md bg-gray-100 p-2"
               placeholder="Contraseña"
+              value={contraseña}
+              onChange={(e)=>{setContraseña(e.target.value)}}
             />
 
             <p
@@ -87,6 +112,7 @@ export default function Login() {
               className={`bg-[#4d4cfd] ml-14 text-white py-2 px-10 rounded-md mt-8 mx-auto ${
                 darkMode ? "dark" : ""
               }`}
+              onClick={Login}
             >
               Iniciar
             </button>
