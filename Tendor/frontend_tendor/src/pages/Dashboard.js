@@ -6,15 +6,22 @@ export default function Dashboard() {
   const [estadoLona, setEstadoLona] = useState(false);
   const [websocket, setWebsocket] = useState(null);
   const [medirLona, setMedirLona] = useState(false);
-  const [usuario] = useState(1);
+  // const [usuario, setUsuario ] = useState();
   const [temperatura, setTemperatura] = useState(null);
   const [humedad, setHumedad] = useState(null);
 
+  const objetoString = localStorage.getItem('id_usuario');
+  const objeto = JSON.parse(objetoString);
+  console.log(objeto)
+
   useEffect(() => {
+    // setUsuario(objeto);
+    // console.log(usuario);
+
     const ws = new WebSocket("ws://localhost:8765");
     ws.onopen = () => {
       console.log("Conectado al servidor WebSocket");
-      ws.send(usuario);
+      ws.send(objeto);
     };
 
     ws.onmessage = (event) => {
@@ -64,6 +71,7 @@ export default function Dashboard() {
 
   return (
     <>
+    <button className="absolute top-[10%] left-[50%] text-[#858585] text-xl" onClick={() => setMedirLona(!medirLona)}>Medir lona</button>
       <Navbar />
       <div className={`card ${darkMode ? "dark" : ""}`}>
         <div className={`card1 ${darkMode ? "dark" : ""}`}>
