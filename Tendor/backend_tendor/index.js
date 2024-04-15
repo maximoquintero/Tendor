@@ -5,6 +5,8 @@ const cors = require("cors");
 const usuariosRouter = require('./router/usuariosRouter');
 const registrosRouter = require('./router/registrosRouter');
 const loginRouter = require('./router/loginRouter');
+const HumedadRouter = require('./router/HumedadRouter');
+const LluviaRouter = require('./router/LluviaRouter');
 
 
 //* app va a tener todos los atributos y metodos de express
@@ -17,6 +19,8 @@ app.use(express.json());
 app.use("/usuarios", usuariosRouter);
 app.use("/registros", registrosRouter);
 app.use('/login', loginRouter);
+app.use('/humedadSensor', HumedadRouter);
+app.use('/lluviaSensor',LluviaRouter)
 
 
 app.get("/",(req,res) => {
