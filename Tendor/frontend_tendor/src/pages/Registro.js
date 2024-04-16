@@ -9,7 +9,7 @@ export default function Registro() {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [contraseña, setContraseña] = useState("");
-  const [medida_lona, setMedida_lona] = useState("");
+  // const [medida_lona, setMedida_lona] = useState("");
   const [darkMode, setDarkMode] = useState(getInitialMode());
 
   // Función para obtener el modo oscuro desde el almacenamiento local
@@ -32,7 +32,7 @@ export default function Registro() {
       nombre: nombre,
       correo: correo,
       contraseña: contraseña,
-      medida_lona: medida_lona,
+      // medida_lona: medida_lona,
     }).then(() => {
       alert("usuario registrado");
     });
@@ -79,14 +79,14 @@ export default function Registro() {
               onChange={(e)=>{setContraseña(e.target.value)}}
             ></input>
 
-            <p className={`mt-3 textc ${darkMode ? "dark" : ""}`}>medida de lona:</p>
+            {/* <p className={`mt-3 textc ${darkMode ? "dark" : ""}`}>medida de lona:</p>
 
             <input
               type="number"
               className="mt-2 w-[53%] rounded-md bg-gray-100 p-2"
               placeholder="En metros"
               onChange={(e)=>{setMedida_lona(e.target.value)}}
-            ></input>
+            ></input> */}
             <Link to={'/'}>
             <button className={`flex bg-[#4d4cfd] ml-10 text-white py-2 px-10 rounded-md mt-8 mx-auto ${
                 darkMode ? "dark" : ""

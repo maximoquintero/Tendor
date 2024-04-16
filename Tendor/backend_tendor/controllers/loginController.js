@@ -1,28 +1,40 @@
-const connection = require('../database')
+const connection = require('../database');
 
-function Login(request, response){
+function Login(request, response) {
     const correo = request.body.correo;
     const contraseña = request.body.contraseña;
 
     connection.query(
-        `SELECT*FROM usuarios WHERE correo=? AND contraseña=?`,
-        [correo, contraseña], (error, result) =>{
-            if(result.length == 0){
-                response.status(200).json({
-                    respuesta:"No se encontro el usuario",
-                    length: result.length,
-                    status: false,
+        `SELECT id_usuario FROM usuarios WHERE correo=? AND contraseña=?`,
+        [correo, contraseña],
+        (error, result) => {
+            if (error) {
+                response.status(500).json({
+                    error: "Error en la consulta SQL"
                 });
-            }else{
-                response.status(200).json({
-                    respuesta: result,
-                    length: result.length,
-                    status: true,
-                });
+            } else {
+                if (result.length === 0) {
+                    response.status(200).json({
+                        respuesta: "No se encontró el usuario",
+                        length: result.length,
+                        status: false,
+                    });
+                } else {
+                    const id_usuario = result[0].id_usuario;
+                    response.status(200).json({
+                        respuesta: {
+                            id_usuario: id_usuario,
+                            data: result,
+                        },
+                        length: result.length,
+                        status: true,
+                    });
+                }
             }
         }
-    )
+    );
 }
+
 module.exports = {
     Login
-}
+};

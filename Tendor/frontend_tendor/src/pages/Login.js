@@ -16,6 +16,10 @@ export default function Login() {
     return savedMode || false; // Devuelve false si no se encuentra en el almacenamiento local
   }
 
+  useEffect(()=>{
+    localStorage.clear();
+  },[])
+
   // Efecto para aplicar el modo oscuro al cargar la página
   useEffect(() => {
     if (darkMode) {
@@ -25,20 +29,24 @@ export default function Login() {
     }
   }, [darkMode]);
 
-  const Login = async(e) =>{
+  const Login = async (e) => {
     e.preventDefault();
-    const response = await Axios.post('http://localhost:3001/login',{
+    const response = await Axios.post('http://localhost:3001/login', {
       correo: correo,
       contraseña: contraseña
-    })
-    if (response.data.status){
-      window.location.href= "/dashboard"
-    }else{
-        setCorreo("");
-        setContraseña("");
-        alert("Prueba con otro correo o contraseña");
+    });
+    if (response.data.status) {
+      // Guardar el id_usuario en el localStorage
+      const id_usuario = response.data.respuesta.id_usuario;
+      localStorage.setItem('id_usuario', id_usuario);
+      // Redirigir al dashboard
+      window.location.href = "/dashboard";
+    } else {
+      setCorreo("");
+      setContraseña("");
+      alert("Prueba con otro correo o contraseña");
     }
-  }
+  }  
   
   return (
     <>
