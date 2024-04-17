@@ -12,7 +12,7 @@ export default function Dashboard() {
 
   const objetoString = localStorage.getItem('id_usuario');
   const objeto = JSON.parse(objetoString);
-  console.log(objeto)
+  // console.log(objeto)
 
   useEffect(() => {
     // setUsuario(objeto);
@@ -32,6 +32,11 @@ export default function Dashboard() {
         console.log(temperatura);
         setHumedad(data.humedad);
         console.log(humedad);
+      }
+      if(data.distancia !== undefined){
+        // console.log(data.distancia)
+        let mensaje = "Tu patio mide: " + data.distancia + " CM";
+        alert(mensaje)
       }
     };
 

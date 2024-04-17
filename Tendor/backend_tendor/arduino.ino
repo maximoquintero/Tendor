@@ -22,11 +22,12 @@ void setup() {
 }
 
 void loop() {
+  long distanciaCM = ultrasonico.distanceRead(CM);
+  float distanciaM = distanciaCM / 100;
     if (Serial.available() > 0) {
         char command = Serial.read();
         if (command == 'M') {
-            long distancia = ultrasonico.distanceRead("CM");
-            Serial.println(distancia);
+            Serial.println(distanciaCM);
         }
         else if (command == 'D') {
             motor.step(UnaVuelta);
@@ -65,8 +66,7 @@ void automatico() {
                 motor2.step(UnaVuelta);
                 estado_motores = true;
             }
-        }
-        if (sensor_lluvia == 0 && estado_motores) {
+        }else if(sensor_lluvia == 0 && estado_motores) {
             motor.step(-UnaVuelta);
             motor2.step(-UnaVuelta);
             estado_motores = false;
