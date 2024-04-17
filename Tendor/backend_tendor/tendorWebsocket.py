@@ -32,11 +32,15 @@ async def comunicacion(websocket, path):
             if message == "M":
                 # Si se recibe el comando 'M', enviar el comando al Arduino
                 arduino_serial.write(message.encode())
-                time.sleep(0.5)
+                time.sleep(0.9)
                 distancia = arduino_serial.readline().decode().strip()
                 print("Distancia:", distancia)
                 # Enviar la distancia medida al cliente
                 await websocket.send(json.dumps({"distancia": distancia}))
+                sql_update_distancia = "UPDATE usuarios SET medida_lona = %s WHERE id_usuario = %s"
+                cursor.execute(sql_update_distancia, (distancia, usuario))
+                db.commit()
+
             elif message in ["D", "G"]:
                 print(f"Enviando a Arduino: {message}")
                 arduino_serial.write(message.encode())
@@ -57,15 +61,15 @@ async def comunicacion(websocket, path):
             cursor.execute(sql_insert, (humidity, temperature, usuario))
             
             if not recibiendo_datos:
-                sql_update = "UPDATE ctrl_lluvia SET estado = %s WHERE usuario_id = %s"
-                cursor.execute(sql_update, (1, usuario))
+                sql_update_1 = "UPDATE ctrl_lluvia SET estado = %s WHERE usuario_id = %s"
+                cursor.execute(sql_update_1, (1, usuario))
                 recibiendo_datos = True
             
             db.commit()
         else:
             if recibiendo_datos:
-                sql_update = "UPDATE ctrl_lluvia SET estado = %s WHERE usuario_id = %s"
-                cursor.execute(sql_update, (0, usuario))
+                sql_update_0 = "UPDATE ctrl_lluvia SET estado = %s WHERE usuario_id = %s"
+                cursor.execute(sql_update_0, (0, usuario))
                 recibiendo_datos = False
                 db.commit()
 
