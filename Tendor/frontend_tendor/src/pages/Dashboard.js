@@ -118,10 +118,12 @@ export default function Dashboard() {
 
   return (
     <>
-    <button className="absolute top-[10%] left-[50%] text-[#858585] text-xl" onClick={() => setMedirLona(!medirLona)}>Medir lona</button>
+    <button className={`absolute top-[10%] left-[50%] text-[#858585] text-xl hover:text-black ${darkMode ? 'hover:text-white' : ''}`} onClick={() => setMedirLona(!medirLona)}>
+      Medir lona
+      </button>
       <Navbar />
       <div className={`card ${darkMode ? "dark" : ""}`}>
-        <div className={`card1 ${darkMode ? "dark" : ""}`}>
+        <div className={`card1 ${darkMode ? "dark" : ""}`}> 
           <a href="/historial">
             <div>
               <h1>Historial de cargas</h1>
