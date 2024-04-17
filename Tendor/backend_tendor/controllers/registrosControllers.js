@@ -31,31 +31,31 @@ const obtenerRegistrosPorId = (req,res) => {
 }
 
 const crearRegistros = (req, res) => {
-    const { nombre, correo, contrasena, medida_lona } = req.body;
-    connection.query("INSERT INTO usuarios (nombre, correo, contrasena, medida_lona) VALUES (?,?,?,?)",
-        [nombre, correo, contrasena, medida_lona], (error, results) => {
+    const { comentario, hora_inicio, hora_final, usuario_id } = req.body;
+    connection.query("INSERT INTO registros (comentario, hora_inicio, hora_final, usuario_id) VALUES (?,?,?,?)",
+        [comentario, hora_inicio, hora_final, usuario_id], (error, results) => {
             if (error) {
-                console.error("Error al agregar el usuario", error);
-                res.status(500).json({ error: "Error al agregar usuario" });
+                console.error("Error al agregar el registro", error);
+                res.status(500).json({ error: "Error al agregar el registro" });
             } else {
-                res.json({ message: "Usuario agregado" });
+                res.json({ message: "Registro agregado" });
             }
         });
 };
 
-// const actualizarRegistrosPorId = (req, res) => {
-//     const id = req.params.id_usuario;
-//     const { nombre, correo, contrasena, medida_lona } = req.body;
-//     connection.query('UPDATE usuarios SET nombre = ?, correo = ?, contrasena = ?, medida_lona = ? WHERE id_usuario = ?',
-//         [nombre, correo, contrasena, medida_lona, id], (error, results) => {
-//             console.error("Error al actualizar el usuario", error); // Movido dentro de la condición if
-//             if (error) {
-//                 res.status(500).json({ error: "Ocurrió un error al actualizar el usuario" });
-//             } else {
-//                 res.json({ message: "El usuario fue actualizado correctamente" });
-//             }
-//         });
-// };
+const actualizarRegistrosPorId = (req, res) => {
+    const id = req.params.id_registro;
+    const { comentario, hora_inicio, hora_final, usuario_id } = req.body;
+    connection.query('UPDATE usuarios SET comentario = ?, hora_inicio = ?, hora_final = ? WHERE id_registro = ?',
+        [comentario, hora_inicio, hora_final,  id], (error, results) => {
+            console.error("Error al actualizar el usuario", error); // Movido dentro de la condición if
+            if (error) {
+                res.status(500).json({ error: "Ocurrió un error al actualizar el usuario" });
+            } else {
+                res.json({ message: "El usuario fue actualizado correctamente" });
+            }
+        });
+};
 
 // const eliminarRegistrosPorId = (req, res) => {
 //     const id = req.params.id_usuario;
@@ -75,5 +75,5 @@ module.exports = {
     obtenerRegistrosPorId,
     crearRegistros,
     // eliminarRegistrosPorId,
-    // actualizarRegistrosPorId,
+    actualizarRegistrosPorId,
 };

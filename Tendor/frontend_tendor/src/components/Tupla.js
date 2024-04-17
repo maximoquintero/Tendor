@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Tupla({ nombre_tupla, dato, value, change, descripcion, darkMode }) {
+function Tupla({ nombre_tupla, dato, value, onChange, descripcion, darkMode }) {
   return (
     <>
       <div className='pb-4'>
@@ -11,12 +11,13 @@ function Tupla({ nombre_tupla, dato, value, change, descripcion, darkMode }) {
           id={nombre_tupla}
           type={dato}
           value={value}
-          onChange={change}
+          onChange={onChange}
           className={`mt-2 h-8 block w-full  rounded-xl p-3 ${!darkMode ? 'textc border-[#A5A5FD] border-2' : 'bg-[#1F1F1F]  '}`}
           placeholder={descripcion}
           name={nombre_tupla}
           style={{ backgroundColor: darkMode ? '#000 border dark:border-[#838383] ' : 'transparent ' }}
         />
+        
       </div>
     </>
   );

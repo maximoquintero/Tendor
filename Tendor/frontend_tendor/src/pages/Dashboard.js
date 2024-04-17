@@ -10,10 +10,12 @@ export default function Dashboard() {
   // const [usuario, setUsuario ] = useState();
   const [temperatura, setTemperatura] = useState(null);
   const [humedad, setHumedad] = useState(null);
+  //Consigue id
   const objetoString = localStorage.getItem('id_usuario');
   const objeto = JSON.parse(objetoString);
   console.log(objeto)
   const [clima, setClima] = useState([])
+  
 
   useEffect(() => {
     // setUsuario(objeto);

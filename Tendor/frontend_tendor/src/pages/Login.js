@@ -40,7 +40,7 @@ export default function Login() {
       const id_usuario = response.data.respuesta.id_usuario;
       localStorage.setItem('id_usuario', id_usuario);
       // Redirigir al dashboard
-      window.location.href = "/dashboard";
+      window.location.href = `/dashboard/${id_usuario}`;
     } else {
       setCorreo("");
       setContraseña("");
