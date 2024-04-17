@@ -43,10 +43,10 @@ function Navbar() {
       </div>
       <div className='flex gap-5 ml-0 text-center text-[#858585] pt-4 start-0 text-xl'>
         <Link to={`/dashboard/${objeto}`}>
-          <h1 className={`hover:text-black ${darkMode ? 'dark:hover:text-white' : ''}`}>Dashboard</h1>
+          <h1 className={`hover:text-black ${darkMode ? 'hover:text-white' : ''}`}>Dashboard</h1>
         </Link>
         <Link to={`/historial/${objeto}`}>
-          <h1 className={`hover:text-black w-[200px] ${darkMode ? 'dark:hover:text-white' : ''}`}>Historial de carga</h1>
+          <h1 className={`hover:text-black w-[200px] ${darkMode ? 'hover:text-white' : ''}`}>Historial de carga</h1>
         </Link>
       </div>
       <div className='flex gap-4 ml-[50%] mr-0 pt-4 px-2'>
