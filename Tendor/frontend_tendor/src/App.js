@@ -18,11 +18,11 @@ function App() {
       element: <Registro/>
     },
     {
-      path:"/dashboard",
+      path:"/dashboard/:objeto",
       element: <Dashboard/>
     },
     {
-      path:"/historial",
+      path:"/historial/:objeto",
       element: <Historial/>
     },
     
