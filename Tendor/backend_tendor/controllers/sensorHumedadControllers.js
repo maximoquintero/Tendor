@@ -18,15 +18,20 @@ function crearDatoHumedad(request, response) {
 }
 
 function verDatoHumedad(request, response) {
-  connection.query(`SELECT * FROM ctrl_sensor ORDER BY id_ctrl_sensor DESC LIMIT 10`, (error, results) => {
+  connection.query(`SELECT * FROM ctrl_sensor ORDER BY id_ctrl_sensor DESC LIMIT 1`, (error, results) => {
     if (error) {
-      console.error("Error al obtener los datos:", error);
-      response.status(500).json({ error: "Error al obtener los datos" });
+      console.error("Error al obtener el último dato:", error);
+      response.status(500).json({ error: "Error al obtener el último dato" });
     } else {
-      response.status(200).json(results);
+      if (results.length > 0) {
+        response.status(200).json(results[0]);
+      } else {
+        response.status(404).json({ message: "No hay datos en la tabla" });
+      }
     }
   });
 }
+
 
 function verDatoHumedadId(request, response) {
   const lectura = request.params.id;
