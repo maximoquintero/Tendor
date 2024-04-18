@@ -15,6 +15,7 @@ export default function Dashboard() {
   const objeto = JSON.parse(objetoString);
   console.log(objeto)
   const [clima, setClima] = useState([])
+  const [sensorHumedad, setSensorHumedad] = useState(null);
   
 
   useEffect(() => {
@@ -116,6 +117,24 @@ export default function Dashboard() {
     };
   }, []);
 
+  
+  //SENSOR DE TEMPERATURA Y HUMEDAD
+  useEffect(() => {
+    verSensor();
+    const intervalId = setInterval(verSensor, 5000); // Actualizar cada 5 segundos (5000 milisegundos)
+    return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar el componente
+  }, []);
+
+  const verSensor = async () => {
+    try {
+      const response = await axios.get('http://localhost:3001/humedadSensor');
+      console.log('Datos obtenidos:', response.data);
+      setSensorHumedad(response.data);
+    } catch (error) {
+      console.error("Error al obtener el dato del sensor:", error);
+    }
+  };
+
   return (
     <>
     <button className={`absolute top-[10%] left-[50%] text-[#858585] text-xl hover:text-black ${darkMode ? 'hover:text-white' : ''}`} onClick={() => setMedirLona(!medirLona)}>
@@ -163,20 +182,26 @@ export default function Dashboard() {
       <div className="carta1">
         <div className={`card4 ${darkMode ? "dark" : ""}`}>
           <h1>Clima ahora</h1>
+          
           <div style={{ display: "flex" }}>
+          <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        marginTop: '5px'
+      }}
+    >
+      <div>
+        <h2>Humedad</h2>
+        {sensorHumedad && <h2>{sensorHumedad.sensor_humedad}</h2>}
+      </div>
+      <div>
+        <h2>Temperatura</h2>
+        {sensorHumedad && <h2>{sensorHumedad.sensor_temperatura}</h2>}
+      </div>
+    </div>
             <div
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "10px",
-                textAlign: "center",
-              }}
-            >
-              <h2>Humedad</h2>
-              <h2>Colgada a las 07:10 am</h2>
-            </div>
-            <div
-              style={{ marginLeft: "60px", width: "130px", marginTop: "-12px" }}
+              style={{ marginLeft: "30px", width: "130px", marginTop: "-12px" }}
             >
               <img
                 alt=""
@@ -184,6 +209,7 @@ export default function Dashboard() {
               />
             </div>
           </div>
+          
         </div>
 
         <div className={`card5 ${darkMode ? "dark" : ""}`}>
@@ -210,7 +236,7 @@ export default function Dashboard() {
 
       <div className={`card6 ${darkMode ? "dark" : ""}`}>
         
-        <div style={{ display: "flex", marginTop: "30px", marginLeft: "0px" }}>
+        <div style={{ display: "flex", marginTop: "30px" }}>
         {clima.map(item =>(
           <div className="ml-2 mr-2">
             <h2>{item.dt_txt}</h2>
