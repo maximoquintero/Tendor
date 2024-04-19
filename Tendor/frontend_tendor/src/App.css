@@ -4,15 +4,15 @@
 
 body {
   background-color: #EEF1F9;
+  transition: background-color 1s ease;
 }
 
 body.dark {
   background-color: #1F1F1F;
+  transition: background-color 1s ease;
 }
 
-body {
-  transition: background-color 0.3s ease;
-}
+
 
 .montserrat {
   font-family: "Montserrat", sans-serif;

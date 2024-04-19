@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
-import axios from 'axios'
+import axios from "axios";
+import Medir from "../img/dash_img/medir.png"
 
 export default function Dashboard() {
   const [darkMode] = useState(getInitialMode());
@@ -11,11 +12,11 @@ export default function Dashboard() {
   const [temperatura, setTemperatura] = useState(null);
   const [humedad, setHumedad] = useState(null);
   //Consigue id
-  const objetoString = localStorage.getItem('id_usuario');
+  const objetoString = localStorage.getItem("id_usuario");
   const objeto = JSON.parse(objetoString);
-  console.log(objeto)
-  const [clima, setClima] = useState([])
-  
+  console.log(objeto);
+  const [clima, setClima] = useState([]);
+
 
   useEffect(() => {
     // setUsuario(objeto);
@@ -36,10 +37,10 @@ export default function Dashboard() {
         setHumedad(data.humedad);
         console.log(humedad);
       }
-      if(data.distancia !== undefined){
+      if (data.distancia !== undefined) {
         // console.log(data.distancia)
         let mensaje = "Tu patio mide: " + data.distancia + " CM";
-        alert(mensaje)
+        alert(mensaje);
       }
     };
 
@@ -78,17 +79,19 @@ export default function Dashboard() {
   }, [darkMode]);
 
   //API DEL CLIMA OPENWEATHERMAP
-  useEffect(() =>{
-    const fetchData = async() =>{
-      try{
-        const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast?lat=21.1619&lon=86.8515&appid=eb3de6da0a9ff04480c4970525b30d0a&lang=esp&cnt=7')
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.openweathermap.org/data/2.5/forecast?lat=21.1619&lon=86.8515&appid=eb3de6da0a9ff04480c4970525b30d0a&lang=esp&cnt=7"
+        );
         setClima(response.data.list);
-      }catch(error){
-        console.error('Ocurrio un error al obtener los datos:', error)
+      } catch (error) {
+        console.error("Ocurrio un error al obtener los datos:", error);
       }
     };
     fetchData();
-  },[])
+  }, []);
 
   //API NOTIFICACIONES
   const [notificaciones, setNotificaciones] = useState([]);
@@ -96,11 +99,13 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api.openweathermap.org/data/2.5/weather?lat=21.1619&lon=86.8515&appid=eb3de6da0a9ff04480c4970525b30d0a&lang=es&cnt=1');
+        const response = await axios.get(
+          "https://api.openweathermap.org/data/2.5/weather?lat=21.1619&lon=86.8515&appid=eb3de6da0a9ff04480c4970525b30d0a&lang=es&cnt=1"
+        );
         setNotificaciones([response.data]); // Establecer notificaciones como un array con los datos de respuesta
         setLoading(false);
       } catch (error) {
-        console.error('Ocurrió un error al obtener los datos:', error);
+        console.error("Ocurrió un error al obtener los datos:", error);
         setLoading(false);
       }
     };
@@ -118,13 +123,10 @@ export default function Dashboard() {
 
   return (
     <>
-    <button className={`absolute top-[10%] left-[50%] text-[#858585] text-xl hover:text-black ${darkMode ? 'hover:text-white' : ''}`} onClick={() => setMedirLona(!medirLona)}>
-      Medir lona
-      </button>
       <Navbar />
       <div className={`card ${darkMode ? "dark" : ""}`}>
-        <div className={`card1 ${darkMode ? "dark" : ""}`}> 
-          <a href="/historial">
+        <div className={`card1 ${darkMode ? "dark" : ""}`}>
+          <a href={`/historial/${objeto}`}>
             <div>
               <h1>Historial de cargas</h1>
             </div>
@@ -137,27 +139,23 @@ export default function Dashboard() {
             {estadoLona ? "Quitar Lona" : "Poner Lona"}
           </button>
         </div>
-        
+
         <div className={`card3 ${darkMode ? "dark" : ""}`}>
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
-        <>
-          <div>
+          <div className="flex">
             <img
               alt=""
-              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAABS9JREFUaEPtml1oHFUUx/9n1sxsG9yZnU0ErdDmoZTog6FaURqICIpQLfiiBVEQX1KqVgRFsWCqQsAKVhTagg8q+qAv4hc+VMEi1UrUWlT8qsRgUxGzMzsbSHY22XvsbBPJTnZ35s7HBtud1zkf/985d+69c2cIF9lFFxkvusAXese7HU6zw7ZdHWKFnwNww1KeL0nQvnxePZVm3pWxO9Zhq+Q+D8JjzcDOiRjL69r+TkB3BLjoVG4j0MftgBh0Y0FXT6QNnSqw47Ap4N7HoEcAbAyAmSTwS8TaG4ZBdlrgqQD/U65syTCNAdgVUfhbGfCYrmdPR/Rv6ZYosG2zwUr1FQD3JCGUgdexqD5cKFA5iXhejMSAi7Pu1STwUYihK6v99xrxjv5c9hdZxxYTZPwwVnlhO1h8AiAbEO0LAFPEdNazY+INADatWKZauc+SoJF8Xj0ZV23sDpdK8wOClG8BGC3EnGai8YzoebfVZFQuc9+CWLiTiJ8EMNA0DmO61rO4rb+396840LGA/2Re11uufgNgsImIORCPmbnsARmBtuPuY+DZFj5fmbq2vGmRCfufbSxgy/EmKN7TJPMUK9hRuFT7MYqqGae6jYAPCXyZ35+BZwq69nSUuLEmrVJp/mZByqdNEv+UgTqs62RFFeX5zczNbVAWMyfAuNIfhwRtjfo8R+5w0XEnznXhupViCPR3rWfx2r7166fjwC77zsy6g4rABIBeX7wPTF3bGSVHJGB7dmGEhfhs1XBj3F0wtHeiCGnlYzuVvQw66LvPNeLBKEtVJGDLcd9ctbkgnDJz2lCSsMuxLMf1RswVDbEZL5iG1vRlpJ2GqMDeOnq5L/C9pq55hUj8skruEyCMNz4+mMjr2vWyyaSBHaeyuQb61ZeoWquqff39NCsrIIy9bc9vYkWZ9NkKJ6f2DhBVwsRYtpEGLpbcu4jwtm+yOprX1VtlEsvaWo77M4AtDX6kDJu5nuMysaSBrVJ1FMSHViZh4LWCrt0vk1jW1nLc9wHc0ZCXsatgaA3FD4obAXj18wTGAdPQHg9KFud+0akeJPDexkLzowU9+6JMXGngouOOEdCw02Fgf0HXvPff1K6k8naBg1qUVKWD8vjvJ5W32+GgyidV6aA83Q4nNFl2h3TQUOsOae8w7kJdh217fiMryjH/UexaAddPQIUYyefXTQWNTOmXhzosKcdB8I5WGy+m3aahHg6bNIpdsz18PQ5jmlhsDwsdatKqv55llM+bnS+dr7I6lM9TKQpIWJ/6V41M9fumGghnqCaGw0AHArfvrFx1w8K1sktCS1vgpW9F37X4fHKWRH0o/REXRMZ/6TDAewduPPI5H2SyVlWvaXcQ0RbYcip7API+jvme2c521p8+YD4ZNQ31SKsitgVutubKThIy3ZOxbQUdtGJIAwcFlBEd1zbKJkgaGMzHmGjVmXRc8VH8ifkmEI2s9A1qiDxwFGUd9OkC+4odNEs/CNDLHWxQAqn4IVPPrl5ZliIHrMP1A/DfAFySgJJOhFgkITa32xuE2mmJTOYWMK/6bNkJgtA5iM4otdrRoO1lIHDohP8Twy5wko2yHNf7/2OrZMyTpq7J+oROkWqH7XJlJzO9F1pN3ZBvN/Ws979XKleqwJ5iy6kcAmg0nHo+bOrZ3eFso1mlDuzJskuVV5nogbYSiY+YuWzIwkSD9bw6Auwl8n5FUsBPMXAVLb3LEjAtGD9kQOOGoX4dHSO8Z8eAw0tK17ILnG591z56t8Nr34N0FfwLURhGWw9vCNYAAAAASUVORK5CYII="
+              src={Medir}
             />
+            <button
+              className={`  text-white text-xl hover:text-[#858585] ${
+                darkMode ? "hover:text-white" : ""
+              }`}
+              onClick={() => setMedirLona(!medirLona)}
+            >
+             <h1>Medir lona</h1> 
+            </button>
           </div>
-          {notificaciones.map(item =>(
-            <div key={item.weather[0].id}> {/* Agrega una clave única para cada elemento del mapeo */}
-              <h1>{item.weather[0].description}</h1>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
-        
+        </div>
       </div>
 
       <div className="carta1">
@@ -209,23 +207,31 @@ export default function Dashboard() {
       </div>
 
       <div className={`card6 ${darkMode ? "dark" : ""}`}>
-        
-        <div style={{ display: "flex", marginTop: "30px", marginLeft: "0px" }}>
-        {clima.map(item =>(
-          <div className="ml-2 mr-2">
-            <h2>{item.dt_txt}</h2>
-            <img
-            className="ml-8"
-              alt=""
-              src="data:image/png;base64,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"
-            />
-            <p style={{ marginLeft: "28px", color: "white", fontSize: "18px" }}>
-            {item.main.temp}°C
-            </p>
-          </div>
+        <div
+          style={{
+            display: "flex",
+            marginTop: "10px",
+            marginLeft: "0px",
+            paddingTop: "2px",
+          }}
+        >
+          {clima.map((item) => (
+            <div className="ml-4 mr-4">
+              <h2 className="mx-auto text-center">{item.dt_txt}</h2>
+              <img
+                className="ml-8"
+                alt=""
+                src="data:image/png;base64,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"
+              />
+              <p
+                style={{ marginLeft: "28px", color: "white", fontSize: "18px" }}
+              >
+                {item.main.temp}°C
+              </p>
+            </div>
           ))}
-          </div>
         </div>
+      </div>
     </>
   );
 }

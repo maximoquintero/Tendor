@@ -1,12 +1,10 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../img/Logo.png';
-import React, { useState, useEffect } from 'react';
 
 function Navbar() { 
-
   const objetoString = localStorage.getItem('id_usuario');
   const objeto = JSON.parse(objetoString);
-  console.log(objeto, 'encontrado o yeah')
 
   const [darkMode, setDarkMode] = useState(getInitialMode());
 
@@ -21,7 +19,6 @@ function Navbar() {
     const newMode = !darkMode;
     setDarkMode(newMode);
     localStorage.setItem('darkMode', JSON.stringify(newMode));
-    // Recargar la página
     window.location.reload();
   }
 

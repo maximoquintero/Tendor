@@ -16,7 +16,7 @@ const obtenerRegistros = (req,res) => {
 };
 
 const obtenerRegistrosPorId = (req,res) => {
-    const id = req.params.id_registro;
+    const id = req.params.objeto;
 
     connection.query('SELECT * FROM registros WHERE id_registro = ?',[id],(error,results) => {
         if (error){
@@ -57,6 +57,19 @@ const actualizarRegistrosPorId = (req, res) => {
         });
 };
 
+const actualizarHoraPorId = (req, res) => {
+    const id = req.params.id_registro; // Obtener el id_registro de los parámetros de la solicitud
+    connection.query('CALL actualizar_hora(?)', [id], (error, results) => {
+        if (error) {
+            console.error("Error al actualizar el usuario", error); // Registrar el error en caso de que ocurra
+            res.status(500).json({ error: "Ocurrió un error al actualizar la hora" }); // Responder con un error 500 si hay un error
+        } else {
+            res.json({ message: "La hora fue actualizado correctamente" }); // Responder con un mensaje de éxito si la actualización fue exitosa
+        }
+    });
+};
+
+
 // const eliminarRegistrosPorId = (req, res) => {
 //     const id = req.params.id_usuario;
 
@@ -76,4 +89,5 @@ module.exports = {
     crearRegistros,
     // eliminarRegistrosPorId,
     actualizarRegistrosPorId,
+    actualizarHoraPorId,
 };

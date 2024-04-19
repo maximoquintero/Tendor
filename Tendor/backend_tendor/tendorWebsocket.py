@@ -6,10 +6,10 @@ import json
 import mysql.connector
 
 db_config = {
-    'host': "mysql-maxquin.alwaysdata.net",
-    'user': "maxquin",
-    'password': "HolaMundo23",
-    'database': "maxquin_tendor"
+    'host': "localhost",
+    'user': "root",
+    'password': "5toCuatrimestre",
+    'database': "tendor"
 }
 
 try:
@@ -19,7 +19,7 @@ except mysql.connector.Error as err:
     print(f"Error al conectar a MySQL: {err}")
     exit(1)
 
-arduino_serial = serial.Serial('COM7', 9600, timeout=1)
+arduino_serial = serial.Serial('/dev/cu.usbserial-1130', 9600, timeout=1)
 
 async def comunicacion(websocket, path):
     usuario = None

@@ -10,6 +10,8 @@ export default function Historial() {
   const [comentario, setComentario] = useState("");
   const [darkMode] = useState(getInitialMode());
   const [hora_inicio, setHora_inicio] = useState("");
+  const [hora_final, setHora_Final] = useState("");
+  const [id_registro, setId_Registro] = useState(null); // Nuevo estado para almacenar el ID del registro seleccionado
 
   // Función para obtener el modo oscuro desde el almacenamiento local
   function getInitialMode() {
@@ -49,17 +51,32 @@ export default function Historial() {
   useEffect(() => {
     async function fetchRegistros() {
       try {
-        const response = await axios.get(
-          `http://localhost:3001/registros`
-        );
+        const response = await axios.get(`http://localhost:3001/registros`);
         setRegistros(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los datos:", error);
       }
     }
     fetchRegistros();
   }, []);
+
+  const actualizarHoraFinal = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3001/registros/${id_registro}`,
+        {
+          id_registro: id_registro,
+          hora_final: hora_final,
+        }
+      );
+      setHora_Final(response.data);
+      console.log(response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error al obtener los datos:", error);
+    }
+  };
 
   return (
     <div className={`h-full w-full bottom-0`}>
@@ -131,17 +148,43 @@ export default function Historial() {
             <tbody
               className={`text-center overflow-auto  border rounded-b-xl ${
                 !darkMode
-                  ? "bg-[#EEF1F9] border-[#A5A5FD]"
-                  : "bg-[#858585] border-[#555353] text-white"
+                  ? "bg-[#EEF1F9] border-[#A5A5FD]  "
+                  : "bg-[#858585] border-[#555353] "
               }`}
             >
               {Array.isArray(registros) &&
-                registros.map((registro) => (
-                  <tr key={registro.id}>
-                    <td className="py-4">{registro.id}</td>
+                registros.map((registro, index) => (
+                  <tr
+                    key={index}
+                    className={`text-center overflow-auto border rounded-b-xl ${
+                      !darkMode
+                        ? "bg-[#EEF1F9] border-[#A5A5FD]  "
+                        : "bg-[#858585] border-[#555353] "
+                    }`}
+                  >
+                    <td className="py-4">{index + 1}</td>
                     <td>{registro.comentario}</td>
                     <td>{registro.hora_inicio}</td>
-                    <td>{registro.hora_final}</td>
+                    <td>
+                      {registro.hora_final ? (
+                        registro.hora_final
+                      ) : (
+                        <button
+                        onClick={()=>{
+                          setId_Registro(registro.id_registro)
+                          actualizarHoraFinal()}}
+                          className={`${
+                            darkMode
+                              ? "border-[#858585] text-white bg-[#1F1F1F]"
+                              : "border-[#A5A5FD]  text-white"
+                          } rounded-xl p-2 bg-[#A5A5FD]`}
+                          type="button"
+                        >
+                      
+                          Terminado
+                        </button>
+                      )}
+                    </td>
                   </tr>
                 ))}
             </tbody>
